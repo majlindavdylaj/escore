@@ -33,6 +33,10 @@ class RestApi {
     await _makePostRequest('${Api.HOST}/auth/verifyemail', params, onResponse, onError);
   }
 
+  posts({onResponse, onError}) async {
+    await _makeGetRequest('${Api.HOST}/private/post/all', onResponse, onError);
+  }
+
   _makePostRequest(url, params, onResponse, onError) async {
     var res = await http.post(
       Uri.parse(url),

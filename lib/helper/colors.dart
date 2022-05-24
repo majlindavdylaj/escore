@@ -5,6 +5,7 @@ const backgroundDark = Color(0xff252550);
 const backgroundMediumDark = Color(0xff2C2A5F);
 const backgroundLight = Color(0xff34346B);
 const buttonColor = Color(0xff745FF8);
+const whiteColor = Color(0xffffffff);
 
 //text
 const textColorWhite = Color(0xffD5D4F8);

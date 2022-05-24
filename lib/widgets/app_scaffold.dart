@@ -5,12 +5,14 @@ class AppScaffold extends StatelessWidget {
 
   final bool isBackgroundDark;
   final Widget child;
+  final Widget? bottomNavigationBar;
   final bool hasAppBar;
 
   const AppScaffold({
     Key? key,
     this.isBackgroundDark = true,
     required this.child,
+    this.bottomNavigationBar,
     this.hasAppBar = false
   }) : super(key: key);
 
@@ -26,6 +28,7 @@ class AppScaffold extends StatelessWidget {
       ) : PreferredSize(preferredSize: const Size(0.0, 0.0),child: Container(),),
       backgroundColor: isBackgroundDark ? backgroundDark : backgroundMediumDark,
       body: child,
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

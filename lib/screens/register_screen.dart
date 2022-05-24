@@ -108,7 +108,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    sub!.cancel();
+    if(sub != null){
+      sub?.cancel();
+    }
     super.dispose();
   }
 

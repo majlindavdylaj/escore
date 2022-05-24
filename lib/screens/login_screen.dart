@@ -8,6 +8,7 @@ import 'package:escore/widgets/app_button.dart';
 import 'package:escore/widgets/app_scaffold.dart';
 import 'package:escore/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,8 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   login() async {
     Loading.show(context);
+    String username = usernameController.text.trim();
+
     Map<String, String> params = {
-      "username": usernameController.text,
+      if(GetUtils.isEmail(username))
+        "email": username,
+      if(!GetUtils.isEmail(username))
+        "username": username,
       "password": passwordController.text
     };
 
@@ -57,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               AppTextField(
                 controller: usernameController,
-                hint: "Username",
+                hint: "Username or Email",
                 keyboardType: TextInputType.text,
                 icon: Icons.person,
               ),
