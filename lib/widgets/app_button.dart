@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
 
-  IconData? icon;
-  String? text;
-  Color? backgroundColor;
-  VoidCallback onClick;
+  final IconData? icon;
+  final String? text;
+  final Color? backgroundColor;
+  final VoidCallback onClick;
 
-  AppButton({
+  const AppButton({
     Key? key,
     this.icon,
     this.text,

@@ -1,5 +1,4 @@
 import 'package:escore/api/rest_api.dart';
-import 'package:escore/helper/colors.dart';
 import 'package:escore/helper/get_message.dart';
 import 'package:escore/helper/loading.dart';
 import 'package:escore/screens/main_screen.dart';

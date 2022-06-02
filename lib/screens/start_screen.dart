@@ -1,5 +1,4 @@
 import 'package:escore/api/rest_api.dart';
-import 'package:escore/screens/login_screen.dart';
 import 'package:escore/screens/main_screen.dart';
 import 'package:escore/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';

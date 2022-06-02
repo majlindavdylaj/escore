@@ -1,9 +1,6 @@
 import 'dart:typed_data';
-import 'dart:ui';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:escore/controllers/post_controller.dart';
-import 'package:escore/helper/colors.dart';
 import 'package:escore/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +8,7 @@ import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+//ignore: must_be_immutable
 class HomeItem extends StatefulWidget {
 
   final Post? post;
@@ -68,7 +66,7 @@ class _HomeItemState extends State<HomeItem> {
   @override
   Widget build(BuildContext context) {
 
-    int postIndex = postController.postsList.value.indexOf(widget.post!);
+    int postIndex = postController.postsList.indexOf(widget.post!);
     if(controller!.value.isInitialized){
       if(widget.currentPos == postIndex) {
         //controller!.seekTo(Duration.zero);
