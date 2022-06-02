@@ -124,10 +124,12 @@ packages:
   get:
     dependency: "direct main"
     description:
-      name: get
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.6.1"
+      path: "."
+      ref: master
+      resolved-ref: "6ab6adb731c503f75827c90677f90b0dd35d93da"
+      url: "https://github.com/jonataslaw/getx.git"
+    source: git
+    version: "5.0.0-beta.30"
   html:
     dependency: transitive
     description:

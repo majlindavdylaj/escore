@@ -1,13 +1,8 @@
-import 'package:escore/api/rest_api.dart';
 import 'package:escore/helper/colors.dart';
-import 'package:escore/helper/loading.dart';
-import 'package:escore/helper/session.dart';
 import 'package:escore/screens/login_screen.dart';
 import 'package:escore/screens/main/home_screen.dart';
 import 'package:escore/screens/main/profile_screen.dart';
 import 'package:escore/screens/main/publish_post_screen.dart';
-import 'package:escore/screens/register_screen.dart';
-import 'package:escore/widgets/app_button.dart';
 import 'package:escore/widgets/app_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

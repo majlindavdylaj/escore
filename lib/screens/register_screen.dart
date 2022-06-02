@@ -8,7 +8,6 @@ import 'package:escore/screens/main_screen.dart';
 import 'package:escore/widgets/app_button.dart';
 import 'package:escore/widgets/app_scaffold.dart';
 import 'package:escore/widgets/app_text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiver/async.dart';

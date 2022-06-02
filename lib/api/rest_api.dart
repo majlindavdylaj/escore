@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:escore/api/api.dart';
 import 'package:escore/helper/session.dart';
 import 'package:escore/screens/login_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,31 +13,31 @@ class RestApi {
   RestApi(this.context);
 
   updateToken({onResponse, onError}) async {
-    await _makeGetRequest('${Api.HOST}/private/updatetoken', onResponse, onError);
+    await _makeGetRequest('${Api.host}/private/updatetoken', onResponse, onError);
   }
 
   login(params, {onResponse, onError}) async {
-    await _makePostRequest('${Api.HOST}/auth/login', params, onResponse, onError);
+    await _makePostRequest('${Api.host}/auth/login', params, onResponse, onError);
   }
 
   register(params, {onResponse, onError}) async {
-    await _makePostRequest('${Api.HOST}/auth/register', params, onResponse, onError);
+    await _makePostRequest('${Api.host}/auth/register', params, onResponse, onError);
   }
 
   logout({onResponse, onError}) async {
-    await _makeGetRequest('${Api.HOST}/private/logout', onResponse, onError);
+    await _makeGetRequest('${Api.host}/private/logout', onResponse, onError);
   }
 
   verifyEmail(params, {onResponse, onError}) async {
-    await _makePostRequest('${Api.HOST}/auth/verifyemail', params, onResponse, onError);
+    await _makePostRequest('${Api.host}/auth/verifyemail', params, onResponse, onError);
   }
 
   posts({onResponse, onError}) async {
-    await _makeGetRequest('${Api.HOST}/private/post/all', onResponse, onError);
+    await _makeGetRequest('${Api.host}/private/post/all', onResponse, onError);
   }
 
   createPost(value, params, {onResponse, onError}) async {
-    await _makeMultipartRequest('${Api.HOST}/private/post/create', value, params, onResponse, onError);
+    await _makeMultipartRequest('${Api.host}/private/post/create', value, params, onResponse, onError);
   }
 
   _makePostRequest(url, params, onResponse, onError) async {

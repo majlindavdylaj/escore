@@ -23,7 +23,7 @@ class PublishPostScreen extends StatefulWidget {
 
 class _PublishPostScreenState extends State<PublishPostScreen> {
 
-  PickedFile? video;
+  XFile? video;
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController descriptionController = TextEditingController();
@@ -37,7 +37,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
   int videoMaxDuration = 2 * 60;
   
   _pickVideo() async {
-    var pickedVideo = await picker.getVideo(source: ImageSource.gallery, maxDuration: Duration(seconds: videoMaxDuration));
+    var pickedVideo = await picker.pickVideo(source: ImageSource.gallery, maxDuration: Duration(seconds: videoMaxDuration));
     if(pickedVideo != null) {
       setState(() {
         video = pickedVideo;
@@ -78,7 +78,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
     String description = descriptionController.text.trim();
 
     Map<String, String> params = {
-      //"description": description
+      "description": description
     };
 
     List<http.MultipartFile> files = [

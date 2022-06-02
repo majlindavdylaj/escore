@@ -33,7 +33,10 @@ dependencies:
   http: ^0.13.4
   flutter_secure_storage: ^4.1.0
   flutter_spinkit: ^5.1.0
-  get: 4.6.1
+  get:
+    git:
+      url: https://github.com/jonataslaw/getx.git
+      ref: master
   quiver: ^3.1.0
   persistent_bottom_nav_bar: ^4.0.2
   carousel_slider: ^4.1.1
