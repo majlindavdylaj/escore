@@ -37,6 +37,10 @@ class RestApi {
     await _makeGetRequest('${Api.HOST}/private/post/all', onResponse, onError);
   }
 
+  createPost(value, params, {onResponse, onError}) async {
+    await _makeMultipartRequest('${Api.HOST}/private/post/create', value, params, onResponse, onError);
+  }
+
   _makePostRequest(url, params, onResponse, onError) async {
     var res = await http.post(
       Uri.parse(url),
@@ -92,12 +96,14 @@ class RestApi {
     }
   }
 
-  _makeMultipartRequest(url, http.MultipartFile value, onResponse, onError) async {
+  _makeMultipartRequest(url, List<http.MultipartFile> files, params, onResponse, onError) async {
     var res = http.MultipartRequest(
         'POST',
         Uri.parse(url)
     );
-    res.files.add(value);
+    res.files.addAll(files);
+    res.headers.addAll(await Session().cookie());
+    if(params != null) res.fields.addAll(params);
     var req = await res.send();
     if(req.statusCode == 200){
       onResponse();

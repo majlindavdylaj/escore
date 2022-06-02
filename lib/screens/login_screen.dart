@@ -73,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.text,
                 icon: Icons.lock,
                 isSecure: true,
+                maxLines: 1,
               ),
               const SizedBox(height: 20),
               Container(

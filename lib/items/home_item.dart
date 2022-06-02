@@ -1,16 +1,24 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:escore/controllers/post_controller.dart';
 import 'package:escore/helper/colors.dart';
 import 'package:escore/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeItem extends StatefulWidget {
 
   final Post? post;
+  int currentPos;
 
-  const HomeItem({
-    Key? key,
-    this.post
+  HomeItem(this.currentPos,{
+      Key? key,
+      this.post
   }) : super(key: key);
 
   @override
@@ -19,45 +27,85 @@ class HomeItem extends StatefulWidget {
 
 class _HomeItemState extends State<HomeItem> {
 
-  late VideoPlayerController controller;
+  PostController postController = Get.find();
+  VideoPlayerController? controller;
+
+  Uint8List? image;
 
   @override
   void initState() {
+    initController();
+    getThumbnail();
+
+    super.initState();
+  }
+
+  initController(){
     controller = VideoPlayerController.network(widget.post!.video!)
       ..initialize().then((_) {
         setState(() {});
       })
-      ..setLooping(true)
-      ..play();
-    super.initState();
+      ..setLooping(true);
+  }
+
+  getThumbnail() async {
+    image = await VideoThumbnail.thumbnailData(
+      video: widget.post!.video!,
+      imageFormat: ImageFormat.JPEG,
+      timeMs: 5000
+    );
+    if(mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    controller!.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        child: Center(
-          child: controller.value.isInitialized
-              ? AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
-                child: VideoPlayer(controller),
-              )
-              : Container(),
-        ),
+
+    int postIndex = postController.postsList.value.indexOf(widget.post!);
+    if(controller!.value.isInitialized){
+      if(widget.currentPos == postIndex) {
+        //controller!.seekTo(Duration.zero);
+        controller!.play();
+      }
+    }
+
+    return Container(
+      color: Colors.red,
+      height: 400,
+      width: 400,
+      child: GestureDetector(
+        child: controller!.value.isInitialized
+            ? VisibilityDetector(
+              key: Key('$postIndex'),
+              onVisibilityChanged: (VisibilityInfo info){
+                if(info.visibleFraction == 0){
+                  controller!.pause();
+                }
+                else{
+                  controller!.play();
+                }
+              },
+              child: AspectRatio(
+                aspectRatio: controller!.value.aspectRatio,
+                child: VideoPlayer(controller!),
+              ),
+            )
+            : Container(),
+        onTap: (){
+          /*if(controller!.value.isInitialized) {
+            if(!controller!.value.isPlaying && widget.isInView){
+              controller!.play();
+            }
+          }*/
+        },
       ),
-      onTap: (){
-        if(controller.value.isInitialized) {
-          controller.value.isPlaying
-              ? controller.pause()
-              : controller.play();
-        }
-      },
     );
   }
 }

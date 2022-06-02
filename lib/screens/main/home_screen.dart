@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:escore/controllers/post_controller.dart';
 import 'package:escore/items/home_item.dart';
+import 'package:escore/models/post.dart';
 import 'package:escore/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:preload_page_view/preload_page_view.dart';
 import 'package:video_player/video_player.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,40 +19,69 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PostController postController = Get.find();
 
+  late PreloadPageController _pageController;
+  Duration pageTurnDuration = const Duration(milliseconds: 500);
+  Curve pageTurnCurve = Curves.ease;
+  int currentPos = 0;
+
   @override
   void initState() {
     postController.fetchPosts(context);
+    _pageController = PreloadPageController();
     super.initState();
+  }
+
+  void _goForward() {
+    _pageController.nextPage(duration: pageTurnDuration, curve: pageTurnCurve);
+  }
+
+  void _goBack() {
+    _pageController.previousPage(duration: pageTurnDuration, curve: pageTurnCurve);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return AppScaffold(
-      child: Obx(() =>
-      !postController.isLoading.value
-          ? postController.postsList.isNotEmpty
-          ? CarouselSlider(
-            options: CarouselOptions(
-              height: MediaQuery.of(context).size.height,
-              scrollDirection: Axis.vertical,
-              enableInfiniteScroll: false,
-              disableCenter: true,
-              viewportFraction: 1,
-              onPageChanged: (i, _){
-                debugPrint('$i');
-              },
-            ),
-            items: postController.postsList.map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return HomeItem(post: i);
+        child: Obx(() =>
+        !postController.isLoading.value
+            ? postController.postsList.isNotEmpty
+            ? GestureDetector(
+              child: PreloadPageView.builder(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount:  postController.postsList.length,
+                scrollDirection: Axis.vertical,
+                preloadPagesCount: 2,
+                itemBuilder: (BuildContext context, int index) {
+                  Post post = postController.postsList[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Container(
+                      color: Colors.red,
+                      height: 200,
+                      child: HomeItem(currentPos, post: post),
+                    ),
+                  );
                 },
-              );
-            }).toList(),
-          )
-          : const Center(child: Text("Empty"))
-          : const Center(child: CircularProgressIndicator()),
-      )
+                onPageChanged: (int index){
+                  setState((){
+                    currentPos = index;
+                  });
+                },
+              ),
+              onVerticalDragUpdate: (details){
+                int sensitivity = 8;
+                if (details.delta.dy > sensitivity) {
+                  _goBack();
+                } else if(details.delta.dy < -sensitivity){
+                  _goForward();
+                }
+              },
+            )
+            : const Center(child: Text("Empty"))
+            : const Center(child: CircularProgressIndicator()),
+        )
     );
   }
 }

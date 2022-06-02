@@ -10,6 +10,9 @@ class AppTextField extends StatelessWidget {
   final bool isSecure;
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
+  final int? maxLines;
+  final int? maxLength;
+  final int? minLines;
 
   const AppTextField({
     Key? key,
@@ -19,7 +22,10 @@ class AppTextField extends StatelessWidget {
     this.icon,
     this.isSecure = false,
     this.validator,
-    this.suffixIcon
+    this.suffixIcon,
+    this.maxLines,
+    this.maxLength,
+    this.minLines,
   }) : super(key: key);
 
   @override
@@ -36,8 +42,11 @@ class AppTextField extends StatelessWidget {
         obscureText: isSecure,
         textInputAction: TextInputAction.next,
         keyboardType: keyboardType,
+        maxLines: maxLines,
+        minLines: minLines,
+        maxLength: maxLength,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 10, right: 10),
+          contentPadding: (icon == null) ? const EdgeInsets.all(20) : null,
           border: InputBorder.none,
           hintText: hint,
           hintStyle: const TextStyle(
@@ -46,7 +55,7 @@ class AppTextField extends StatelessWidget {
           errorStyle: const TextStyle(
             color: Colors.deepOrange
           ),
-          prefixIcon: Icon(icon!, color: textColorDark),
+          prefixIcon: (icon != null) ? Icon(icon!, color: textColorDark) : null,
           suffixIcon: suffixIcon,
         ),
         style: const TextStyle(

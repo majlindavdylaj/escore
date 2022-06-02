@@ -5,6 +5,7 @@ import 'package:escore/helper/session.dart';
 import 'package:escore/screens/login_screen.dart';
 import 'package:escore/screens/main/home_screen.dart';
 import 'package:escore/screens/main/profile_screen.dart';
+import 'package:escore/screens/main/publish_post_screen.dart';
 import 'package:escore/screens/register_screen.dart';
 import 'package:escore/widgets/app_button.dart';
 import 'package:escore/widgets/app_scaffold.dart';
@@ -23,15 +24,22 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    //if publish post clicked open new Screen
+    if(index == 2){
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const PublishPostScreen()
+      ));
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   final List<Widget> _pages = const <Widget>[
     HomeScreen(),
     LoginScreen(),
-    LoginScreen(),
+    SizedBox(),// Empty Widget for publish post
     LoginScreen(),
     ProfileScreen()
   ];

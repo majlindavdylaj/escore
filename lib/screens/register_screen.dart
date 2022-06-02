@@ -170,6 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       keyboardType: TextInputType.text,
                       icon: Icons.lock,
                       isSecure: true,
+                      maxLines: 1,
                       validator: (value){
                         if(value.toString().length < 6){
                           return "The password must be at least 6 characters\n";
@@ -183,6 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       keyboardType: TextInputType.text,
                       icon: Icons.lock,
                       isSecure: true,
+                      maxLines: 1,
                       validator: (value){
                         if(value.toString() != passwordController.text.toString()){
                           return "Password and Confirm password must match\n";
