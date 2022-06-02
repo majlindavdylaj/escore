@@ -109,7 +109,7 @@ class RestApi {
     } else if(req.statusCode == 401) {
       _redirectLogin();
     } else {
-      onError('Error ${req.statusCode}');
+      onError('Errorr ${req.statusCode}');
     }
   }
 
