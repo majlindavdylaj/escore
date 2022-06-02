@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         onError: (error) {
           Loading.hide(context);
-          GetMessage.snackbarMessage('Error', error);
+          GetMessage.snackbarMessage('Errorr', error);
         }
     );
   }
